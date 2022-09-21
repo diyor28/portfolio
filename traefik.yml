@@ -20,6 +20,8 @@ providers: # In Traefik “providers” is where Traefik gets its configuration 
   docker: # uses Docker and labels for configuration
     exposedByDefault: false # do not expose new services by default unless they are explicitly exposed using traefik.enable=true
 
+accessLog: {}
+
 api:
   dashboard: true # exposes dashboard
   # insecure: true uncomment to expose the API and the dashboard without TLS enabled.

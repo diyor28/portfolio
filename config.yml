@@ -1,5 +1,3 @@
-accessLog: {}
-
 tls:
   certificates:
     - certFile: /etc/letsencrypt/live/notagar.diyor28.com/fullchain.pem
