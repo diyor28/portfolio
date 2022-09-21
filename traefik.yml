@@ -1,0 +1,25 @@
+defaultEntryPoints: # makes the 443 port default.
+  - websecure
+
+entryPoints:
+  web: # defines an entrypoint called web
+    address: :80 # use port 80
+    http:
+      redirections: # redirect to entrypoint websecure
+        entryPoint:
+          to: websecure
+          scheme: https
+  websecure:
+    address: :443
+
+providers: # In Traefik “providers” is where Traefik gets its configuration from.
+  file: #path to our dynamic configuration file.
+    filename: /config.yml
+    watch: true
+
+  docker: # uses Docker and labels for configuration
+    exposedByDefault: false # do not expose new services by default unless they are explicitly exposed using traefik.enable=true
+
+api:
+  dashboard: true # exposes dashboard
+  # insecure: true uncomment to expose the API and the dashboard without TLS enabled.

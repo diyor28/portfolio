@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  reverse-proxy:
+    image: traefik:v2.4
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    labels:
+      - "traefik.enable=true" # expose this container to the world.
+      - "traefik.http.routers.dashboard.rule=Host(`traefik.diyor28.com`)" # make the dashboard only available on https://traefik.diyor28.com
+      - "traefik.http.routers.dashboard.tls=true" # secure dashboard using TLS
+      - "traefik.http.routers.dashboard.service=api@internal" # wires our service to internal dashboard service
+      - "traefik.http.routers.dashboard.middlewares=auth" # create an authentication middleware, which is totally optional
+      - "traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$0hj7wfiv$$NYkVssRUXBmZcRZZi5G7M/"
+      # create a username&password combination to log in. NOTE: Escape $ in the generated hash with double $$ .
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # lets Traefik listen to docker events and know when a container is spun up
+      - /etc/letsencrypt/:/etc/letsencrypt/ # contains SSL certificates
+      - ./traefik.yml:/traefik.yml:ro # static configuration file, Traefik will only pick it up once, on startup
+      - ./config.yml:/config.yml
+      # dynamic configuration file, Traefik will watch for changes and dynamically pick them up without restarting or terminating any connections
+    networks:
+      - traefik
+
+networks: # connect all of our applications to this network
+  traefik:
+    name: traefik
