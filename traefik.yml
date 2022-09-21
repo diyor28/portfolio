@@ -1,6 +1,8 @@
 defaultEntryPoints: # makes the 443 port default.
   - websecure
 
+accessLog: {}
+
 entryPoints:
   web: # defines an entrypoint called web
     address: :80 # use port 80
