@@ -4,7 +4,7 @@ tls:
       keyFile: /etc/letsencrypt/live/notagar.diyor28.com/privkey.pem
     - certFile: /etc/letsencrypt/live/traefik.diyor28.com/fullchain.pem
       keyFile: /etc/letsencrypt/live/traefik.diyor28.com/privkey.pem
-    - certFile: /etc/letsencrypt/live/rm.traefik.diyor28.com/fullchain.pem
-      keyFile: /etc/letsencrypt/live/rm.traefik.diyor28.com/privkey.pem
+    - certFile: /etc/letsencrypt/live/rm.diyor28.com/fullchain.pem
+      keyFile: /etc/letsencrypt/live/rm.diyor28.com/privkey.pem
     - certFile: /etc/letsencrypt/live/diyor28.com/fullchain.pem
       keyFile: /etc/letsencrypt/live/diyor28.com/privkey.pem
